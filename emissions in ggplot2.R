@@ -11,7 +11,7 @@ png(filename = "plot1.png", width = 480, height = 480)
 barplot(yearly_emissions, main = "Yearly pm2.5 emmissions across United States", ylab = "Emissions in tons")
 dev.off()
 
-##### plot2\
+##### plot2
 
 dfsplit <- group_by(df, fips, year)
 #groups all data by county code, fips, then by year
@@ -37,10 +37,10 @@ png(filename = "plot3.png", width = 480, height = 480)
  
 #######plot4
  
-x <- filter(df2, grepl("coal", df2$EI.Sector, ignore.case=TRUE))
+x <- filter(df2, grepl("coal", df2$EI.Sector, ignore.case=TRUE)) #uses the second dataframe to filter sources of coal
 
 coal <- data.frame(df %>% 
-    filter(SCC %in% x$SCC) %>% 
+    filter(SCC %in% x$SCC) %>% #SCC is shared between the two dataframes; use one to find matching records in the other
     group_by(year) %>% 
     summarize(pm2.5 = sum(Emissions)))
 
@@ -52,7 +52,7 @@ png(filename = "plot4.png", width = 480, height = 480)
   dev.off()
 
 ######plot5
-x <- filter(df2, grepl("vehicle", df2$EI.Sector, ignore.case = TRUE))
+x <- filter(df2, grepl("vehicle", df2$EI.Sector, ignore.case = TRUE)) #now filtering for car emissions
 
 cars <- data.frame(df %>%
     filter(SCC %in% x$SCC & fips == 24510) %>%
